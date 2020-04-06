@@ -31,7 +31,7 @@
     - name: Update ufw rules 
       ufw:
         rule: allow
-        name: {{ item }}
+        name: '{{ item }}'
       with_items: 
         - Apache Full
         - Apache
