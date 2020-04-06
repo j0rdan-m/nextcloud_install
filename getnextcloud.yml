@@ -10,11 +10,11 @@
       get_url:
         url: https://download.nextcloud.com/server/releases/nextcloud-18.0.3.zip
         dest: /var/www/html/
-        
+
     - name: Unarchive a file that is already on the remote machine
       unarchive:
         src: /var/www/html/nextcloud-18.0.3.zip
-        dest: /var/www/html/nextcloud/
+        dest: /var/www/html/
         remote_src: yes
        
     - name: Set rights on nextcloud directory
