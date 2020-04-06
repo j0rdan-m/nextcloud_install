@@ -10,20 +10,30 @@
       get_url:
         url: https://download.nextcloud.com/server/releases/nextcloud-18.0.3.zip
         dest: /var/www/html/
-
-    - name: Set rights on nextcloud directory
-      file:
-        path: /var/www/html/nextcloud/
-        state: directory
-        mode: '0755'
-        recurse: yes
-        owner: nobody
-        group: nogroup
+      register: download_nextcloud
         
     - name: Unarchive a file that is already on the remote machine
       unarchive:
         src: /var/www/html/nextcloud-18.0.3.zip
         dest: /var/www/html/
         remote_src: yes
-       
+      when: download_nextcloud.changed
 
+    - name: Set rights on apache directory
+      file:
+        path: /var/www/
+        state: directory
+        mode: '0755'
+        recurse: yes
+        owner: nobody
+        group: nogroup
+        
+    - name: Update ufw rules 
+      ufw:
+        rule: allow
+        name: Apache Full
+        
+    - name: Enable UFW
+      ufw:
+        state: enabled
+        
