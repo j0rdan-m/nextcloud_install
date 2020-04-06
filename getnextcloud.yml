@@ -31,7 +31,11 @@
     - name: Update ufw rules 
       ufw:
         rule: allow
-        name: Apache Full
+        name: {{ item }}
+      with_item: 
+        - Apache Full
+        - Apache
+        - OpenSSH
         
     - name: Enable UFW
       ufw:
