@@ -41,3 +41,14 @@
       ufw:
         state: enabled
         
+    - name: install required php modules
+      apt:
+        name: '{{ item }}'
+        state: latest
+      with_items:
+        - php-zip
+        - php-xml
+        - libapache2-mod-php
+        - php-gd
+        - php-curl
+        
